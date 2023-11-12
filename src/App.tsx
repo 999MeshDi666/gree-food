@@ -1,12 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
-import { global } from '../global';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Intro from './pages/Intro';
+import Main from './pages/Main';
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={global.container}>
-      <Text style={global.text}>Open up App.tsx to start</Text>
-      <StatusBar />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Intro"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Intro" component={Intro} />
+        <Stack.Screen name="Main" component={Main} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
