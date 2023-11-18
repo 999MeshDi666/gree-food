@@ -2,11 +2,11 @@ import { Text, StyleSheet } from 'react-native';
 
 type DefaultHeadlineProps = {
   title: string;
-  textStyles?: { [key: string]: string | number };
+  styles?: { [key: string]: string | number };
 };
-const DefaultHeadline = ({ title, textStyles }: DefaultHeadlineProps) => {
+const DefaultHeadline = ({ title, styles }: DefaultHeadlineProps) => {
   return (
-    <Text numberOfLines={3} style={[style.text, textStyles]}>
+    <Text numberOfLines={3} style={[style.text, styles]}>
       {title}
     </Text>
   );
@@ -15,7 +15,7 @@ const style = StyleSheet.create({
   text: {
     color: '#fff',
     fontFamily: 'Alef-Bold',
-    fontSize: 40,
+    fontSize: 36,
     textTransform: 'uppercase',
   },
 });

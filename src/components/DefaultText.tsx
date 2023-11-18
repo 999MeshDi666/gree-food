@@ -1,11 +1,11 @@
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 type DefaultTextProps = {
   title: string;
-  textStyles?: { [key: string]: string | number };
+  styles?: { [key: string]: string | number };
 };
-const DefaultText = ({ title, textStyles }: DefaultTextProps) => {
-  return <Text style={[style.text, textStyles]}>{title}</Text>;
+const DefaultText = ({ title, styles }: DefaultTextProps) => {
+  return <Text style={[style.text, styles]}>{title}</Text>;
 };
 const style = StyleSheet.create({
   text: {

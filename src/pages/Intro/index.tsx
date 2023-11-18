@@ -13,17 +13,25 @@ const Intro = ({ navigation }: any) => {
       <View style={{ marginTop: 16 }}>
         <Headline
           title={`Quick, Fresh & Delicious`}
-          textStyles={{ width: 200, marginBottom: 6 }}
+          styles={{ width: 200, marginBottom: 6, fontSize: 40 }}
         />
         <Text title="Made by hand, from scratch, with love. Green food." />
       </View>
-      <Button
-        title="Get started"
-        containerStyles={{ marginTop: 32 }}
-        handlePress={() => navigation.navigate('Main')}
-      />
+      <View style={style.buttonContainer}>
+        <Button
+          title="Get started"
+          containerStyles={{ marginTop: 32 }}
+          onPress={() => navigation.navigate('Auth')}
+        />
+      </View>
     </Container>
   );
 };
-const style = StyleSheet.create({});
+const style = StyleSheet.create({
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 25,
+  },
+});
 export default Intro;
