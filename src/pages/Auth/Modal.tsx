@@ -3,15 +3,18 @@ import CloseButton from '../../components/CloseButton';
 import Button from '../../components/DefaultButton';
 import Headline from '../../components/DefaultHeadline';
 import Input from '../../components/Input';
+import { useState } from 'react';
 
 type AuthModalProps = {
   open: boolean;
   onClose: () => void;
 };
 const AuthModal = ({ open, onClose }: AuthModalProps) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View style={[style.overlay]}>
-      <View></View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -20,14 +23,32 @@ const AuthModal = ({ open, onClose }: AuthModalProps) => {
       >
         <View style={style.modalContainer}>
           <View style={style.logoContainer}>
-            <Image source={require('../../../assets/images/modal-image.png')} />
+            <View style={style.logoWrapper}>
+              <Image
+                source={require('../../../assets/images/modal-image.png')}
+              />
+            </View>
           </View>
           <CloseButton onClose={onClose} />
           <Headline title="Sign in" styles={{ textAlign: 'center' }} />
           <View style={style.inputsContainer}>
-            <Input icon="user-alt" placeholder="username" />
-
-            <Input icon="user-lock" placeholder="password" />
+            <Input
+              icon="user-alt"
+              placeholder="username"
+              value={username}
+              onChange={(value) => {
+                setUsername(value);
+              }}
+            />
+            <Input
+              icon="user-lock"
+              placeholder="password"
+              secureEntry={true}
+              value={password}
+              onChange={(value) => {
+                setPassword(value);
+              }}
+            />
           </View>
           <Button
             title="Sign in"
@@ -42,10 +63,10 @@ const AuthModal = ({ open, onClose }: AuthModalProps) => {
 };
 const style = StyleSheet.create({
   overlay: {
+    backgroundColor: '#000',
     position: 'absolute',
     width: '100%',
     height: '100%',
-    backgroundColor: '#000',
     opacity: 0.6,
   },
   modalContainer: {
@@ -62,6 +83,11 @@ const style = StyleSheet.create({
     borderTopRightRadius: 42,
   },
   logoContainer: {
+    position: 'absolute',
+    top: -70,
+    left: 140,
+  },
+  logoWrapper: {
     width: 120,
     padding: 14,
     backgroundColor: '#609657',

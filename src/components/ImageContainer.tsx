@@ -19,7 +19,7 @@ const ImageContainer = ({
 
 const style = StyleSheet.create({
   container: {
-    marginTop: 42,
+    marginTop: 26,
     left: -15,
     padding: 40,
     backgroundColor: '#609657',
