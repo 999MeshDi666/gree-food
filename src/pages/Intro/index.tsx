@@ -29,9 +29,8 @@ const Intro = ({ navigation }: any) => {
 };
 const style = StyleSheet.create({
   buttonContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 25,
+    position: 'relative',
+    top: '10%',
   },
 });
 export default Intro;

@@ -1,11 +1,4 @@
-import {
-  View,
-  Modal,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import { View, Modal, StyleSheet, Image } from 'react-native';
 import CloseButton from '../../components/CloseButton';
 import Button from '../../components/DefaultButton';
 import Headline from '../../components/DefaultHeadline';
@@ -18,6 +11,7 @@ type AuthModalProps = {
 const AuthModal = ({ open, onClose }: AuthModalProps) => {
   return (
     <View style={[style.overlay]}>
+      <View></View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -25,25 +19,22 @@ const AuthModal = ({ open, onClose }: AuthModalProps) => {
         style={{ justifyContent: 'flex-end' }}
       >
         <View style={style.modalContainer}>
+          <View style={style.logoContainer}>
+            <Image source={require('../../../assets/images/modal-image.png')} />
+          </View>
           <CloseButton onClose={onClose} />
           <Headline title="Sign in" styles={{ textAlign: 'center' }} />
           <View style={style.inputsContainer}>
-            <Input
-              icon="user-alt"
-              placeholder="username"
-              styles={{ marginBottom: 26 }}
-            />
+            <Input icon="user-alt" placeholder="username" />
 
             <Input icon="user-lock" placeholder="password" />
           </View>
-          <View style={style.buttonContainer}>
-            <Button
-              title="Sign in"
-              containerStyles={{ backgroundColor: '#417043' }}
-              textStyles={{ color: '#fff' }}
-              onPress={() => {}}
-            />
-          </View>
+          <Button
+            title="Sign in"
+            containerStyles={{ backgroundColor: '#417043' }}
+            textStyles={{ color: '#fff' }}
+            onPress={() => {}}
+          />
         </View>
       </Modal>
     </View>
@@ -58,9 +49,10 @@ const style = StyleSheet.create({
     opacity: 0.6,
   },
   modalContainer: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
     padding: 24,
-    top: '50%',
-    flex: 0.5,
     backgroundColor: '#609657',
     borderColor: '#244627',
     borderStyle: 'solid',
@@ -69,12 +61,17 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 42,
     borderTopRightRadius: 42,
   },
+  logoContainer: {
+    width: 120,
+    padding: 14,
+    backgroundColor: '#609657',
+    borderColor: '#244627',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderRadius: 100,
+  },
   inputsContainer: {
     marginTop: 26,
-  },
-  buttonContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
   },
 });
 export default AuthModal;
