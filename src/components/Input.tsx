@@ -39,7 +39,7 @@ const style = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 26,
+    marginBottom: 28,
     backgroundColor: '#417043',
     padding: 16,
     borderColor: '#244627',

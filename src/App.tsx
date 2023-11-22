@@ -12,9 +12,10 @@ export default function App() {
         initialRouteName="Intro"
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="Intro" component={Intro} />
-        <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="Auth" component={Auth} />
+        <Stack.Group>
+          <Stack.Screen name="Intro" component={Intro} />
+          <Stack.Screen name="Auth" component={Auth} />
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -12,15 +12,10 @@ type AuthModalProps = {
 const AuthModal = ({ open, onClose }: AuthModalProps) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const [email, setEmail] = useState('');
   return (
     <View style={[style.overlay]}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={open}
-        style={{ justifyContent: 'flex-end' }}
-      >
+      <Modal animationType="slide" transparent={true} visible={open}>
         <View style={style.modalContainer}>
           <View style={style.logoContainer}>
             <View style={style.logoWrapper}>
@@ -38,6 +33,15 @@ const AuthModal = ({ open, onClose }: AuthModalProps) => {
               value={username}
               onChange={(value) => {
                 setUsername(value);
+              }}
+            />
+            <Input
+              icon="mail-bulk"
+              placeholder="email"
+              secureEntry={true}
+              value={email}
+              onChange={(value) => {
+                setEmail(value);
               }}
             />
             <Input
@@ -73,14 +77,14 @@ const style = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     bottom: 0,
-    padding: 24,
+    padding: 15,
     backgroundColor: '#609657',
     borderColor: '#244627',
     borderStyle: 'solid',
     borderWidth: 1,
     borderTopWidth: 4,
-    borderTopLeftRadius: 42,
-    borderTopRightRadius: 42,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
   },
   logoContainer: {
     position: 'absolute',

@@ -15,7 +15,7 @@ const style = StyleSheet.create({
   text: {
     color: '#fff',
     fontFamily: 'Alef-Bold',
-    fontSize: 36,
+    fontSize: 32,
     textTransform: 'uppercase',
   },
 });
