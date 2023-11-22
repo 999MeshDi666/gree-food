@@ -4,40 +4,33 @@ import Container from '../../components/Container';
 import Button from '../../components/DefaultButton';
 import Headline from '../../components/DefaultHeadline';
 import ImageContainer from '../../components/ImageContainer';
-import Modal from './Modal';
+import Modal from './SignIn';
 
-const Auth = () => {
+const Auth = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);
   return (
-    <>
-      <Container>
-        <Headline
-          title="Sign in or create an account"
-          styles={{ marginTop: 25 }}
+    <Container>
+      <Headline
+        title="Sign in or create an account"
+        styles={{ marginTop: 25 }}
+      />
+      <ImageContainer img={require('../../../assets/images/auth-image.png')} />
+      <View style={style.buttonContainer}>
+        <Button
+          title="Sign in"
+          onPress={() => {
+            navigation.navigate('SignIn');
+          }}
+          containerStyles={{ marginBottom: 18 }}
         />
-        <ImageContainer
-          img={require('../../../assets/images/auth-image.png')}
-        />
-        <View style={style.buttonContainer}>
-          <Button
-            title="Sign in"
-            onPress={() => {
-              setOpen(!open);
-            }}
-            containerStyles={{ marginBottom: 18 }}
-          />
-          <Button title="Create an account" onPress={() => {}} />
-        </View>
-      </Container>
-      {open && (
-        <Modal
-          open={open}
-          onClose={() => {
-            setOpen(!open);
+        <Button
+          title="Create an account"
+          onPress={() => {
+            navigation.navigate('SignUp');
           }}
         />
-      )}
-    </>
+      </View>
+    </Container>
   );
 };
 const style = StyleSheet.create({
