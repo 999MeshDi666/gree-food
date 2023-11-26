@@ -8,8 +8,6 @@ SplashScreen.preventAutoHideAsync();
 
 const Container = ({ children }: { children: React.ReactNode }) => {
   const [fontsLoaded] = useFonts({
-    'Alef-Bold': require('../../assets/fonts/Alef/Alef-Bold.ttf'),
-    'Alef-Regular': require('../../assets/fonts/Alef/Alef-Regular.ttf'),
     'OpenSans-Bold': require('../../assets/fonts/Open_Sans/OpenSans-Bold.ttf'),
     'OpenSans-ExtraBold': require('../../assets/fonts/Open_Sans/OpenSans-ExtraBold.ttf'),
     'OpenSans-SemiBold': require('../../assets/fonts/Open_Sans/OpenSans-SemiBold.ttf'),

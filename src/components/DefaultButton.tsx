@@ -35,7 +35,7 @@ const style = StyleSheet.create({
     borderRadius: 10,
   },
   title: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'OpenSans-Bold',
     fontSize: 18,
     textAlign: 'center',
   },

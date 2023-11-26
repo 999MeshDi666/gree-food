@@ -14,7 +14,7 @@ const DefaultHeadline = ({ title, styles }: DefaultHeadlineProps) => {
 const style = StyleSheet.create({
   text: {
     color: '#fff',
-    fontFamily: 'Alef-Bold',
+    fontFamily: 'OpenSans-Bold',
     fontSize: 32,
     textTransform: 'uppercase',
   },

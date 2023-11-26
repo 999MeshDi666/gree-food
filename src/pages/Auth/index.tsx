@@ -4,10 +4,8 @@ import Container from '../../components/Container';
 import Button from '../../components/DefaultButton';
 import Headline from '../../components/DefaultHeadline';
 import ImageContainer from '../../components/ImageContainer';
-import Modal from './SignIn';
 
 const Auth = ({ navigation }: any) => {
-  const [open, setOpen] = useState(false);
   return (
     <Container>
       <Headline
