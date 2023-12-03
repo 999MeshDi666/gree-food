@@ -4,7 +4,6 @@ import Button from '../../components/DefaultButton';
 import Text from '../../components/DefaultText';
 import Headline from '../../components/DefaultHeadline';
 import ImageContainer from '../../components/ImageContainer';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 const Intro = ({ navigation }: any) => {
   return (

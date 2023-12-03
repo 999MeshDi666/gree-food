@@ -53,7 +53,7 @@ const SignUp = ({ navigation }: any) => {
           title="Create an account"
           containerStyles={{ backgroundColor: '#417043' }}
           textStyles={{ color: '#fff' }}
-          onPress={() => {}}
+          onPress={() => navigation.navigate('Main')}
         />
       </View>
     </View>
