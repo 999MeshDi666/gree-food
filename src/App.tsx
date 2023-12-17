@@ -5,32 +5,36 @@ import Main from './pages/Main';
 import SignIn from './pages/Auth/SignIn';
 import SignUp from './pages/Auth/SignUp';
 import Auth from './pages/Auth';
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Intro"
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Group>
-          <Stack.Screen name="Intro" component={Intro} />
-          <Stack.Screen name="Auth" component={Auth} />
-          <Stack.Group
-            screenOptions={{
-              presentation: 'transparentModal',
-              animation: 'fade',
-            }}
-          >
-            <Stack.Screen name="SignIn" component={SignIn} />
-            <Stack.Screen name="SignUp" component={SignUp} />
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Intro"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Group>
+            <Stack.Screen name="Intro" component={Intro} />
+            <Stack.Screen name="Auth" component={Auth} />
+            <Stack.Group
+              screenOptions={{
+                presentation: 'transparentModal',
+                animation: 'fade',
+              }}
+            >
+              <Stack.Screen name="SignIn" component={SignIn} />
+              <Stack.Screen name="SignUp" component={SignUp} />
+            </Stack.Group>
           </Stack.Group>
-        </Stack.Group>
-        <Stack.Group>
-          <Stack.Screen name="Main" component={Main} />
-        </Stack.Group>
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Group>
+            <Stack.Screen name="Main" component={Main} />
+          </Stack.Group>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }

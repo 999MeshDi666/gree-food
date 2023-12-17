@@ -4,31 +4,17 @@ import BurgerButton from '../../components/BurgerButton';
 import Card from '../../components/Card';
 import { useEffect, useState } from 'react';
 import { TCatalog } from 'src/types/catalogs';
+import { useGetCatalogListQuery } from '../../services/catalogs';
 
 const Main = () => {
-  const [catalogs, setCatalogs] = useState<TCatalog[]>([]);
-  useEffect(() => {
-    const getCatalogs = async () => {
-      try {
-        const response = await fetch('http://192.168.1.181:8000/api/catalogs/');
-        const json = await response.json();
-
-        if (response.ok) {
-          setCatalogs(json);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCatalogs();
-  }, []);
+  const { data: catalogs } = useGetCatalogListQuery();
 
   return (
     <Container>
       <BurgerButton />
       <View style={[style.itemContainer]}>
-        {catalogs ? (
-          catalogs.map((catalog) => (
+        {catalogs?.length > 0 ? (
+          catalogs.map((catalog: TCatalog) => (
             <Card
               title={catalog.title}
               subtitle={`${catalog.price.toFixed(2)}$`}
