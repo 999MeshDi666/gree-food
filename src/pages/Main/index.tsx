@@ -1,26 +1,43 @@
-import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import Container from '../../components/Container';
 import BurgerButton from '../../components/BurgerButton';
-import DefaultText from '../../components/DefaultText';
+import Card from '../../components/Card';
+import { useEffect, useState } from 'react';
+import { TCatalog } from 'src/types/catalogs';
 
 const Main = () => {
+  const [catalogs, setCatalogs] = useState<TCatalog[]>([]);
+  useEffect(() => {
+    const getCatalogs = async () => {
+      try {
+        const response = await fetch('http://192.168.1.181:8000/api/catalogs/');
+        const json = await response.json();
+
+        if (response.ok) {
+          setCatalogs(json);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCatalogs();
+  }, []);
+
   return (
     <Container>
       <BurgerButton />
       <View style={[style.itemContainer]}>
-        <View style={[style.cartContainer]}>
-          <Image source={require('../../../assets/images/apple-juice.png')} />
-          <View>
-            <DefaultText title="Apple juice" styles={{ color: '#000' }} />
-            <DefaultText title="Price: $5.00" styles={{ color: '#000' }} />
-          </View>
-          <TouchableOpacity
-            style={[style.cartButtonContainer]}
-            activeOpacity={0.9}
-          >
-            <Text style={[style.cartButton]}>Order</Text>
-          </TouchableOpacity>
-        </View>
+        {catalogs ? (
+          catalogs.map((catalog) => (
+            <Card
+              title={catalog.title}
+              subtitle={`${catalog.price.toFixed(2)}$`}
+              key={catalog.id}
+            />
+          ))
+        ) : (
+          <Text>...Loading</Text>
+        )}
       </View>
     </Container>
   );
@@ -28,7 +45,8 @@ const Main = () => {
 const style = StyleSheet.create({
   itemContainer: {
     marginTop: 30,
-    paddingVertical: 26,
+    paddingTop: 86,
+    paddingBottom: 26,
     paddingHorizontal: 20,
     backgroundColor: '#609657',
     borderColor: '#244627',
@@ -40,32 +58,6 @@ const style = StyleSheet.create({
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-  },
-  cartContainer: {
-    backgroundColor: '#fff',
-    width: 140,
-    padding: 6,
-    borderColor: '#000',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRadius: 5,
-  },
-  cartButtonContainer: {
-    backgroundColor: '#417043',
-    borderColor: '#244627',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRadius: 3,
-  },
-  cartButton: {
-    fontSize: 14,
-    fontFamily: 'OpenSans-Bold',
-    textTransform: 'uppercase',
-    textAlign: 'center',
-    color: '#fff',
-
-    paddingHorizontal: 34,
-    paddingVertical: 6,
   },
 });
 export default Main;
