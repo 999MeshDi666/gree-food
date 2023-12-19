@@ -4,13 +4,13 @@ import DefaultText from '../components/DefaultText';
 type CardProps = {
   title: string;
   subtitle: string;
-  src?: string;
+  image?: string;
 };
-const Card = ({ title, subtitle, src }: CardProps) => {
+const Card = ({ title, subtitle, image }: CardProps) => {
   return (
     <View style={[style.cardContainer]}>
       <View style={[style.cardImageWrapper]}>
-        <Image style={[style.cardImage]} source={{ uri: src }} />
+        <Image style={[style.cardImage]} source={{ uri: image }} />
       </View>
       <View style={{ marginTop: 15, marginBottom: 8 }}>
         <DefaultText title={title} styles={style.cardText} />
