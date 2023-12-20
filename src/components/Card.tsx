@@ -4,13 +4,16 @@ import DefaultText from '../components/DefaultText';
 type CardProps = {
   title: string;
   subtitle: string;
-  image?: string;
+  image: string;
 };
 const Card = ({ title, subtitle, image }: CardProps) => {
   return (
     <View style={[style.cardContainer]}>
       <View style={[style.cardImageWrapper]}>
-        <Image style={[style.cardImage]} source={{ uri: image }} />
+        <Image
+          style={[style.cardImage]}
+          source={{ uri: `http://192.168.0.145:8000/${image}` }}
+        />
       </View>
       <View style={{ marginTop: 15, marginBottom: 8 }}>
         <DefaultText title={title} styles={style.cardText} />
@@ -45,7 +48,9 @@ const style = StyleSheet.create({
   cardImage: {
     position: 'absolute',
     top: -60,
-    left: 12,
+    left: 25,
+    width: 80,
+    height: 80,
   },
   cardButtonContainer: {
     backgroundColor: '#417043',

@@ -17,14 +17,12 @@ const Main = () => {
       <View style={[style.itemContainer]}>
         {catalogs?.length > 0 ? (
           catalogs.map((catalog: TCatalog) => {
-            const img = Buffer.from(catalog?.image?.data?.data || [], 'binary');
-            console.log(`data:${catalog?.image?.contentType};base64,${img}`);
             return (
               <Card
                 title={catalog.title}
                 subtitle={`${catalog.price.toFixed(2)}$`}
                 key={catalog._id}
-                image={`data:${catalog?.image?.contentType};base64,${img}`}
+                image={catalog.image}
               />
             );
           })
