@@ -12,12 +12,12 @@ const Card = ({ title, subtitle, image }: CardProps) => {
       <View style={[style.cardImageWrapper]}>
         <Image
           style={[style.cardImage]}
-          source={{ uri: `http://192.168.0.145:8000/${image}` }}
+          source={{ uri: `http://localhost:8000/${image}` }}
         />
       </View>
       <View style={{ marginTop: 15, marginBottom: 8 }}>
         <DefaultText title={title} styles={style.cardText} />
-        <DefaultText title={subtitle} styles={style.cardText} />
+        <DefaultText title={`price: ${subtitle}`} styles={style.cardText} />
       </View>
       <TouchableOpacity style={[style.cardButtonContainer]} activeOpacity={0.9}>
         <Text style={[style.cardButton]}>Order</Text>
@@ -29,12 +29,13 @@ const Card = ({ title, subtitle, image }: CardProps) => {
 const style = StyleSheet.create({
   cardContainer: {
     backgroundColor: '#fff',
-    width: 140,
+    width: 130,
     padding: 6,
     borderColor: '#000',
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: 5,
+    marginTop: 65,
   },
   cardText: {
     color: '#000',
@@ -48,9 +49,9 @@ const style = StyleSheet.create({
   cardImage: {
     position: 'absolute',
     top: -60,
-    left: 25,
-    width: 80,
-    height: 80,
+    left: '15%',
+    width: 85,
+    height: 85,
   },
   cardButtonContainer: {
     backgroundColor: '#417043',
@@ -60,7 +61,7 @@ const style = StyleSheet.create({
     borderRadius: 4,
   },
   cardButton: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'OpenSans-Bold',
     textTransform: 'uppercase',
     textAlign: 'center',

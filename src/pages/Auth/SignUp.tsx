@@ -4,11 +4,25 @@ import Button from '../../components/DefaultButton';
 import Headline from '../../components/DefaultHeadline';
 import Input from '../../components/Input';
 import { useState } from 'react';
+import { useSignupMutation } from '../../services/auth';
 
 const SignUp = ({ navigation }: any) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [signup, { isSuccess, isLoading, error }] = useSignupMutation();
+
+  const handleSignup = async () => {
+    const userData = {
+      username: username,
+      email: email,
+      password: password,
+    };
+
+    const { data: user } = await signup(userData);
+    console.log('user', user);
+  };
+  console.log(error);
   return (
     <View style={[style.overlay]}>
       <View style={style.modalContainer}>
@@ -50,10 +64,11 @@ const SignUp = ({ navigation }: any) => {
           />
         </View>
         <Button
+          disabled={isLoading}
           title="Create an account"
           containerStyles={{ backgroundColor: '#417043' }}
           textStyles={{ color: '#fff' }}
-          onPress={() => navigation.navigate('Main')}
+          onPress={handleSignup}
         />
       </View>
     </View>

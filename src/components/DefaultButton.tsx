@@ -3,6 +3,7 @@ import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 type DefaultButtonProps = {
   title: string;
   onPress: () => void;
+  disabled?: boolean;
   containerStyles?: { [key: string]: string | number };
   textStyles?: { [key: string]: string | number };
 };
@@ -10,10 +11,12 @@ const DefaultButton = ({
   containerStyles,
   textStyles,
   title,
+  disabled = false,
   onPress,
 }: DefaultButtonProps) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={[style.container, containerStyles]}
       activeOpacity={0.9}
       onPress={onPress}

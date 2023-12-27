@@ -3,7 +3,7 @@ export type TCatalog = {
   title: string;
   desc: string;
   price: number;
-  image: any;
+  image: string;
   createdAt: string;
   updatedArt: string;
 };

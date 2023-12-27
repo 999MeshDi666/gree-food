@@ -1,12 +1,10 @@
 import { View, StyleSheet, Text } from 'react-native';
-import { encode as btoa } from 'base-64';
 import Container from '../../components/Container';
 import BurgerButton from '../../components/BurgerButton';
 import Card from '../../components/Card';
 import { useEffect, useState } from 'react';
 import { TCatalog } from 'src/types/catalogs';
 import { useGetCatalogListQuery } from '../../services/catalogs';
-import { Buffer } from 'buffer';
 
 const Main = () => {
   const { data: catalogs } = useGetCatalogListQuery();
