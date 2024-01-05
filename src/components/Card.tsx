@@ -1,5 +1,6 @@
 import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import DefaultText from '../components/DefaultText';
+import { Platform } from 'react-native';
 
 type CardProps = {
   title: string;
@@ -7,12 +8,14 @@ type CardProps = {
   image: string;
 };
 const Card = ({ title, subtitle, image }: CardProps) => {
+  const ENDPOINT =
+    Platform.OS === 'android' ? 'http://10.0.2.2' : 'http://localhost';
   return (
     <View style={[style.cardContainer]}>
       <View style={[style.cardImageWrapper]}>
         <Image
           style={[style.cardImage]}
-          source={{ uri: `http://localhost:8000/${image}` }}
+          source={{ uri: `${ENDPOINT}:8000/${image}` }}
         />
       </View>
       <View style={{ marginTop: 15, marginBottom: 8 }}>
