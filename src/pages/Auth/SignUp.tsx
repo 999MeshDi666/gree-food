@@ -1,10 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  Image,
-  Text,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import CloseButton from '../../components/CloseButton';
 import Button from '../../components/DefaultButton';
 import Headline from '../../components/DefaultHeadline';
@@ -12,12 +6,23 @@ import Input from '../../components/Input';
 import { useEffect, useState } from 'react';
 import { useSignUpMutation } from '../../services/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { setUser } from '../../redux/slices/userSlice';
 import * as SecureStore from 'expo-secure-store';
+import { jwtDecode } from 'jwt-decode';
+import 'core-js/stable/atob';
+
+const getToken = async () => {
+  const token = await SecureStore.getItemAsync('token');
+  if (token) {
+    const userInfo = jwtDecode(token);
+
+    return userInfo;
+  }
+};
+const setToken = (token: string) => {
+  SecureStore.setItemAsync('token', token);
+};
 
 const SignUp = ({ navigation }: any) => {
-  const token = useSelector((state: RootState) => state.user.token);
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -38,7 +43,7 @@ const SignUp = ({ navigation }: any) => {
 
   useEffect(() => {
     if (isSuccess && userData) {
-      dispatch(setUser(userData.token));
+      setToken(userData.token);
     }
   }, [isSuccess, userData]);
 
@@ -48,57 +53,58 @@ const SignUp = ({ navigation }: any) => {
       setErrorMsg(error?.data?.error);
     }
   }, [error]);
+
+  useEffect(() => {
+    console.log(getToken());
+  });
+
   return (
     <View style={[style.overlay]}>
       <View style={style.modalContainer}>
-        <KeyboardAvoidingView>
-          <View style={style.logoContainer}>
-            <View style={style.logoWrapper}>
-              <Image
-                source={require('../../../assets/images/modal-image.png')}
-              />
-            </View>
+        <View style={style.logoContainer}>
+          <View style={style.logoWrapper}>
+            <Image source={require('../../../assets/images/modal-image.png')} />
           </View>
-          <CloseButton onClose={() => navigation.goBack()} />
-          <Headline
-            title={`Create an\naccount`}
-            styles={{ textAlign: 'center' }}
+        </View>
+        <CloseButton onClose={() => navigation.goBack()} />
+        <Headline
+          title={`Create an\naccount`}
+          styles={{ textAlign: 'center' }}
+        />
+        <View style={style.inputsContainer}>
+          <Input
+            icon="user-alt"
+            placeholder="username"
+            value={username}
+            onChange={(value) => {
+              setUsername(value);
+            }}
           />
-          <View style={style.inputsContainer}>
-            <Input
-              icon="user-alt"
-              placeholder="username"
-              value={username}
-              onChange={(value) => {
-                setUsername(value);
-              }}
-            />
-            <Input
-              icon="mail-bulk"
-              placeholder="email"
-              value={email}
-              onChange={(value) => {
-                setEmail(value);
-              }}
-            />
-            <Input
-              icon="user-lock"
-              placeholder="password"
-              secureEntry={true}
-              value={password}
-              onChange={(value) => {
-                setPassword(value);
-              }}
-            />
-          </View>
-          <Button
-            disabled={isLoading}
-            title="Create an account"
-            containerStyles={{ backgroundColor: '#417043' }}
-            textStyles={{ color: '#fff' }}
-            onPress={handleSignUp}
+          <Input
+            icon="mail-bulk"
+            placeholder="email"
+            value={email}
+            onChange={(value) => {
+              setEmail(value);
+            }}
           />
-        </KeyboardAvoidingView>
+          <Input
+            icon="user-lock"
+            placeholder="password"
+            secureEntry={true}
+            value={password}
+            onChange={(value) => {
+              setPassword(value);
+            }}
+          />
+        </View>
+        <Button
+          disabled={isLoading}
+          title="Create an account"
+          containerStyles={{ backgroundColor: '#417043' }}
+          textStyles={{ color: '#fff' }}
+          onPress={handleSignUp}
+        />
       </View>
     </View>
   );

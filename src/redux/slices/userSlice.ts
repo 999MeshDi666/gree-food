@@ -1,16 +1,16 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import * as SecureStore from 'expo-secure-store';
+import { jwtDecode } from 'jwt-decode';
+import 'core-js/stable/atob';
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: { token: '' },
-  reducers: {
-    setUser: (state, action: PayloadAction<string>) => {
-      SecureStore.setItemAsync('token', action.payload);
-      state.token = action.payload;
-    },
+  initialState: {
+    token: '',
+    user: {},
   },
+  reducers: {},
 });
 
-export const { setUser } = userSlice.actions;
+// export const {} = userSlice.actions;
 export default userSlice.reducer;
