@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Intro from './pages/Intro';
 import Main from './pages/Main';
-import SignIn from './pages/Auth/SignIn';
+import Login from './pages/Auth/Login';
 import SignUp from './pages/Auth/SignUp';
 import Auth from './pages/Auth';
 import { store } from './redux/store';
@@ -26,7 +26,7 @@ export default function App() {
                 animation: 'fade',
               }}
             >
-              <Stack.Screen name="SignIn" component={SignIn} />
+              <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="SignUp" component={SignUp} />
             </Stack.Group>
           </Stack.Group>

@@ -10,12 +10,11 @@ import * as SecureStore from 'expo-secure-store';
 import { jwtDecode } from 'jwt-decode';
 import 'core-js/stable/atob';
 
-const getToken = async () => {
+const getUserData = async () => {
   const token = await SecureStore.getItemAsync('token');
   if (token) {
     const userInfo = jwtDecode(token);
-
-    return userInfo;
+    console.log(userInfo);
   }
 };
 const setToken = (token: string) => {
@@ -23,7 +22,6 @@ const setToken = (token: string) => {
 };
 
 const SignUp = ({ navigation }: any) => {
-  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -44,6 +42,7 @@ const SignUp = ({ navigation }: any) => {
   useEffect(() => {
     if (isSuccess && userData) {
       setToken(userData.token);
+      navigation.navigate('Main');
     }
   }, [isSuccess, userData]);
 
@@ -55,7 +54,7 @@ const SignUp = ({ navigation }: any) => {
   }, [error]);
 
   useEffect(() => {
-    console.log(getToken());
+    getUserData();
   });
 
   return (

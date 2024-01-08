@@ -3,11 +3,52 @@ import CloseButton from '../../components/CloseButton';
 import Button from '../../components/DefaultButton';
 import Headline from '../../components/DefaultHeadline';
 import Input from '../../components/Input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLoginMutation } from '../../services/auth';
+import * as SecureStore from 'expo-secure-store';
+import { jwtDecode } from 'jwt-decode';
+import 'core-js/stable/atob';
 
-const SignIn = ({ navigation }: any) => {
-  const [username, setUsername] = useState('');
+const getUserData = async () => {
+  const token = await SecureStore.getItemAsync('token');
+  if (token) {
+    const userInfo = jwtDecode(token);
+    console.log(userInfo);
+  }
+};
+const setToken = (token: string) => {
+  SecureStore.setItemAsync('token', token);
+};
+const Login = ({ navigation }: any) => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [login, { data: userData, isSuccess, isLoading, error }] =
+    useLoginMutation();
+
+  const handleLogin = async () => {
+    const userData = {
+      email: email,
+      password: password,
+    };
+    await login(userData);
+  };
+
+  useEffect(() => {
+    if (isSuccess && userData) {
+      setToken(userData.token);
+      navigation.navigate('Main');
+    }
+  }, [isSuccess, userData]);
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    getUserData();
+  });
 
   return (
     <View style={[style.overlay]}>
@@ -22,14 +63,14 @@ const SignIn = ({ navigation }: any) => {
             navigation.goBack();
           }}
         />
-        <Headline title="Sign in" styles={{ textAlign: 'center' }} />
+        <Headline title="Login" styles={{ textAlign: 'center' }} />
         <View style={style.inputsContainer}>
           <Input
-            icon="user-alt"
-            placeholder="username"
-            value={username}
+            icon="mail-bulk"
+            placeholder="email"
+            value={email}
             onChange={(value) => {
-              setUsername(value);
+              setEmail(value);
             }}
           />
           <Input
@@ -46,7 +87,7 @@ const SignIn = ({ navigation }: any) => {
           title="Sign in"
           containerStyles={{ backgroundColor: '#417043' }}
           textStyles={{ color: '#fff' }}
-          onPress={() => navigation.navigate('Main')}
+          onPress={handleLogin}
         />
       </View>
     </View>
@@ -91,4 +132,4 @@ const style = StyleSheet.create({
     marginTop: 26,
   },
 });
-export default SignIn;
+export default Login;

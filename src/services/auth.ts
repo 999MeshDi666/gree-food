@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { TUser } from '../types/user';
+import { IUser } from '../types/user';
 import { Platform } from 'react-native';
 
 // const ENDPOINT = `http:/localhost:8000/api/auth`;
@@ -13,17 +13,22 @@ const authApi: any = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: ENDPOINT }),
   tagTypes: ['auth'],
   endpoints: (builder) => ({
-    signUp: builder.mutation<TUser, TUser>({
-      query: (data) => {
-        return {
-          url: `${ENDPOINT}/signup`,
-          method: 'POST',
-          body: data,
-        };
-      },
+    signUp: builder.mutation<IUser, IUser>({
+      query: (data) => ({
+        url: `${ENDPOINT}/signup`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    login: builder.mutation<IUser, IUser>({
+      query: (data) => ({
+        url: `${ENDPOINT}/login`,
+        method: 'POST',
+        body: data,
+      }),
     }),
   }),
 });
 
-export const { useSignUpMutation } = authApi;
+export const { useSignUpMutation, useLoginMutation } = authApi;
 export default authApi;
